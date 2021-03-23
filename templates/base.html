@@ -1,0 +1,182 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Agent</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" type="text/css" href="{% static '/css/base.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/sit.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static '/css/navbar.css' %}">
+
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto">
+
+</head>
+<body>
+
+<div class="navbar" id="navbar">
+    <img id="navbar-logotype" class="navbar-logotype" src="{% static 'img/logo.png' %}" alt="logotype"/>
+
+    <div id="navbar-menu" class="navbar-menu">
+        <div class="navbar-menu__item"> Аистов Егор </div>
+    </div>
+
+</div>
+
+<div class="content">
+    <div class="content-title">
+        Your user agent is:
+    </div>
+    <div class="content-info">
+        {{ user_agent }}
+    </div>
+
+    <div class="content-title">
+        Your IP Address is:
+    </div>
+    <div class="content-info">
+        {{ user_ip }}
+    </div>
+
+    <div class="content-title">
+        Browser information:
+    </div>
+    <div class="content-browser-info">
+        <div id="JS-enabled" class="content-browser-info__attribute">
+            JavaScript Enabled:
+        </div>
+        <div id="JS-status" class="content-browser-info__status">
+
+        </div>
+
+        <div id="Cookies-enabled" class="content-browser-info__attribute">
+            Cookies Enabled:
+        </div>
+        <div id="Cookies-status" class="content-browser-info__status">
+
+        </div>
+
+        <div id="Device-Pixel-Ratio" class="content-browser-info__attribute">
+            Device Pixel Ratio:
+        </div>
+        <div id="DPR-status" class="content-browser-info__status">
+
+        </div>
+
+        <div id="Screen-Resolution" class="content-browser-info__attribute">
+            Screen Resolution:
+        </div>
+        <div id="SR-status" class="content-browser-info__status">
+
+        </div>
+
+        <div id="Browser-Window-Size" class="content-browser-info__attribute">
+            Browser Window Size:
+        </div>
+        <div id="BWR-status" class="content-browser-info__status">
+
+        </div>
+
+        <div id="Local-Time" class="content-browser-info__attribute">
+            Local Time:
+        </div>
+        <div id="LT-status" class="content-browser-info__status">
+
+        </div>
+
+        <div id="Time-Zone" class="content-browser-info__attribute">
+            Time Zone:
+        </div>
+        <div id="TZ-status" class="content-browser-info__status">
+
+        </div>
+    </div>
+
+    <div class="content-info">
+        <p> User agents are unique to every visitor on the web. They reveal a catalog of technical data about the
+            device and software that the visitor is using. Armed with this information, you can develop richer and
+            more dynamic websites that deliver different experiences based on the user agent that's visiting. </p>
+
+        <p> User agents are also critical in controlling search engine robots using the robots.txt file on your server.
+            But they don't function perfectly in every situation, and the information in a user agent
+            string can be faked. </p>
+
+        <p> In order to leverage this information, you need to understand the component parts of a user agent string
+            and consider also the potential risks of using this method to deliver content. </p>
+    </div>
+
+    <div class="content-title">
+        What is a User Agent?
+    </div>
+
+    <div class="content-info">
+        <p> Everyone that is browsing the web right now has a user agent. It's the software that acts as the bridge
+            between you — the user — and the internet. </p>
+
+        <p> It's easiest to understand user agents if we backtrack and look at the evolution of the web.
+            That way we can understand the benefits of user agents. </p>
+
+        <p> When the internet was a text-based system, right back at the beginning of its use, users had to type
+            commands to navigate and send messages. Now, we have browsers to do that for us. We simply point and click,
+            and the browser is acting as our "agent," turning our actions into commands. </p>
+    </div>
+
+    <div class="content-title">
+        How Does a User Agent Work?
+    </div>
+
+    <div class="content-info">
+        <p> When your browser (or similar device) loads a website, it identifies itself as an agent when it retrieves
+            the content you've requested. </p>
+
+        <p> Along with that user-agent identification, the browser sends a host of information about the device and
+            network that it's on. </p>
+
+        <p> This is a really set of data for web developers since it allows them to customize the experience
+            depending on the user agent that's loaded the page. </p>
+    </div>
+</div>
+
+<script>
+      function updateTime() {
+          const date = new Date()
+          document.getElementById('LT-status').innerText = date.toLocaleTimeString('en-US', {hour: '2-digit', minute: '2-digit'});
+      }
+
+      document.getElementById('JS-status').innerText = 'Yes';
+      document.getElementById('Cookies-status').innerText = window.navigator.cookieEnabled ? 'Yes' : 'No';
+      document.getElementById('DPR-status').innerText = window.devicePixelRatio.toString();
+      document.getElementById('SR-status').innerText = `${window.screen.width}px x ${window.screen.height}px`;
+      document.getElementById('BWR-status').innerText = `${window.innerWidth}px x ${window.innerHeight}px`;
+
+      updateTime();
+      setInterval(updateTime, 60000);
+
+      const date = new Date()
+      document.getElementById('TZ-status').innerText = (date.getTimezoneOffset() / 60).toString() + ' hours';
+
+      // Когда пользователь прокручивает вниз 250px от верхней части документа, изменяется размер навбара и его содержимого
+    window.onscroll = function() {scrollFunction()};
+
+    // изменение navbar при прокрутке
+    function scrollFunction() {
+        if (document.body.scrollTop > 100 || document.documentElement.scrollTop > 100) {
+            document.getElementById("navbar").style.height = "40px";
+            document.getElementById("navbar-logotype").style.height = "30px";
+            document.getElementById("navbar-logotype").style.width = "120px";
+            document.getElementById("navbar-menu").style.fontSize = "18px";
+          } else {
+            document.getElementById("navbar").style.height = "80px";
+            document.getElementById("navbar-logotype").style.height = "60px";
+            document.getElementById("navbar-logotype").style.width = "240px";
+            document.getElementById("navbar-menu").style.fontSize = "24px";
+          }
+    }
+
+</script>
+
+</body>
+</html>
